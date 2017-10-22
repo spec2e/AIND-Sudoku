@@ -7,9 +7,7 @@ def cross(A, B):
 
 def diag(a, b):
     diag_1 = [s + b[idx] for idx, s in enumerate(a)]
-
     diag_2 = [s2 + b[idx2] for idx2, s2 in enumerate(reversed(a))]
-
     return [diag_1, diag_2]
 
 
@@ -70,7 +68,8 @@ def grid_values(grid):
 
     for key in s_grid.keys():
         if s_grid[key] == '.':
-            s_grid[key] = '123456789'
+            assign_value(s_grid, key, '123456789')
+            #s_grid[key] = '123456789'
     return s_grid
 
 def display(values):
@@ -93,7 +92,8 @@ def eliminate(values):
     for box in found_boxes:
         c = values[box]
         for peer in peers[box]:
-            values[peer] = values[peer].replace(c, '')
+            #values[peer] = values[peer].replace(c, '')
+            assign_value(values, peer, values[peer].replace(c, ''))
 
     return values
 
@@ -103,7 +103,8 @@ def only_choice(values):
             digit_places = [box for box in unit if digit in values[box]]
             if len(digit_places) == 1:
                 unit_to_set = digit_places[0]
-                values[unit_to_set] = digit
+                #values[unit_to_set] = digit
+                assign_value(values, unit_to_set, digit)
 
     return values
 
@@ -145,7 +146,8 @@ def search(values):
 
     for value in values[candidate]:
         new_grid = values.copy()
-        new_grid[candidate] = value
+        #new_grid[candidate] = value
+        assign_value(new_grid, candidate, value)
         result = search(new_grid)
         if result:
             return result
