@@ -61,7 +61,7 @@ def naked_twins(values):
                     twins.append(twin_box)
                     twins.append(twin_candidate)
                     break
-            
+
             if len(twins) == 2:
                 twin_values = values[twins[0]]
                 cleaned_for_twins = [b for b in unit if len(values[b]) > 1 and b not in twins]
