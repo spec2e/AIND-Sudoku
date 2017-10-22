@@ -51,6 +51,25 @@ def naked_twins(values):
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
 
+    for unit in unitlist:
+        print(unit)
+        twin_box_candidates = [b for b in unit if len(values[b]) == 2]
+        twins = []
+        for idx, twin_box in enumerate(twin_box_candidates):
+            for twin_candidate in twin_box_candidates[idx +1:]:
+                if values[twin_candidate] == values[twin_box]:
+                    twins.append(twin_box)
+                    twins.append(twin_candidate)
+                    break
+
+            break
+        print('twins', twins)
+
+        if len(twins) == 2:
+            clean_for_twins = [b for b in unit if len(values[b]) > 1 and b not in twins]
+            print('clean', clean_for_twins)
+
+        print()
 
 
 def grid_values(grid):
@@ -69,7 +88,6 @@ def grid_values(grid):
     for key in s_grid.keys():
         if s_grid[key] == '.':
             assign_value(s_grid, key, '123456789')
-            #s_grid[key] = '123456789'
     return s_grid
 
 def display(values):
@@ -92,7 +110,6 @@ def eliminate(values):
     for box in found_boxes:
         c = values[box]
         for peer in peers[box]:
-            #values[peer] = values[peer].replace(c, '')
             assign_value(values, peer, values[peer].replace(c, ''))
 
     return values
@@ -103,7 +120,6 @@ def only_choice(values):
             digit_places = [box for box in unit if digit in values[box]]
             if len(digit_places) == 1:
                 unit_to_set = digit_places[0]
-                #values[unit_to_set] = digit
                 assign_value(values, unit_to_set, digit)
 
     return values
@@ -169,8 +185,6 @@ if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
     solution = solve(diag_sudoku_grid)
     display(solution)
-
-    print(solution)
 
     try:
         from visualize import visualize_assignments
