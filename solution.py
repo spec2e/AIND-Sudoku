@@ -52,7 +52,6 @@ def naked_twins(values):
     # Eliminate the naked twins as possibilities for their peers
 
     for unit in unitlist:
-        print(unit)
         twin_box_candidates = [b for b in unit if len(values[b]) == 2]
         twins = []
         for idx, twin_box in enumerate(twin_box_candidates):
@@ -61,15 +60,19 @@ def naked_twins(values):
                     twins.append(twin_box)
                     twins.append(twin_candidate)
                     break
-
             break
-        print('twins', twins)
 
         if len(twins) == 2:
-            clean_for_twins = [b for b in unit if len(values[b]) > 1 and b not in twins]
-            print('clean', clean_for_twins)
+            twin_values = values[twins[0]]
+            cleaned_for_twins = [b for b in unit if len(values[b]) > 1 and b not in twins]
+            for elem in cleaned_for_twins:
+                cl_val = values[elem]
+                for ch in twin_values:
+                    cl_val = cl_val.replace(ch, '')
 
-        print()
+                assign_value(values, elem, cl_val)
+
+    return values
 
 
 def grid_values(grid):
