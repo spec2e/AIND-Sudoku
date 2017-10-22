@@ -5,6 +5,16 @@ def cross(A, B):
     "Cross product of elements in A and elements in B."
     return [s + t for s in A for t in B]
 
+def diag(a, b):
+    diag_1 = [s + b[idx] for idx, s in enumerate(a)]
+
+    diag_2 = [s2 + b[idx2] for idx2, s2 in enumerate(reversed(a))]
+
+    return [diag_1, diag_2]
+
+
+diagonals = diag(rows, cols)
+
 boxes = cross(rows, cols)
 
 row_units = [cross(r, cols) for r in rows]
