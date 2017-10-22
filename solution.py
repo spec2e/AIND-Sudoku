@@ -53,26 +53,25 @@ def naked_twins(values):
 
     for unit in unitlist:
         twin_box_candidates = [b for b in unit if len(values[b]) == 2]
-        twins = []
+
         for idx, twin_box in enumerate(twin_box_candidates):
+            twins = []
             for twin_candidate in twin_box_candidates[idx +1:]:
                 if values[twin_candidate] == values[twin_box]:
                     twins.append(twin_box)
                     twins.append(twin_candidate)
                     break
-            break
+            
+            if len(twins) == 2:
+                twin_values = values[twins[0]]
+                cleaned_for_twins = [b for b in unit if len(values[b]) > 1 and b not in twins]
+                for elem in cleaned_for_twins:
+                    cl_val = values[elem]
+                    for ch in twin_values:
+                        if len(cl_val) > 1:
+                            cl_val = cl_val.replace(ch, '')
 
-        if len(twins) == 2:
-            twin_values = values[twins[0]]
-            cleaned_for_twins = [b for b in unit if len(values[b]) > 1 and b not in twins]
-            for elem in cleaned_for_twins:
-                cl_val = values[elem]
-                for ch in twin_values:
-                    if len(cl_val) > 1:
-                        cl_val = cl_val.replace(ch, '')
-
-                assign_value(values, elem, cl_val)
-
+                    assign_value(values, elem, cl_val)
     return values
 
 
