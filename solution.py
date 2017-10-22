@@ -68,7 +68,8 @@ def naked_twins(values):
             for elem in cleaned_for_twins:
                 cl_val = values[elem]
                 for ch in twin_values:
-                    cl_val = cl_val.replace(ch, '')
+                    if len(cl_val) > 1:
+                        cl_val = cl_val.replace(ch, '')
 
                 assign_value(values, elem, cl_val)
 
