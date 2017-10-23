@@ -38,14 +38,17 @@ class TestNakedTwinsHeuristic(unittest.TestCase):
                 "D5": "12356", "D2": "12345679", "D3": "3459", "D1": "1234569"}
 
     def test_naked_twins(self):
-        print(self.result_1)
-        print()
+        #print(self.result_1)
+        #print()
         #solution.display(self.sample_1)
         #print()
         twins = solution.naked_twins(self.sample_1)
-        print(twins)
-        print()
+        #print(twins)
+        #print()
         #solution.display(twins)
 
-        self.assertTrue(solution.naked_twins(self.sample_1) in self.result_1,
-                        "Your naked_twins function produced an unexpected board.")
+        assert self.result_1 == twins
+
+        print('testing...', self.result_1 == twins)
+#        self.assertTrue(solution.naked_twins(self.sample_1) in self.result_1,
+#                        "Your naked_twins function produced an unexpected board.")
